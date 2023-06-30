@@ -6,15 +6,18 @@ function ChessCoordinateGame() {
   const [nextCoordinate, setNextCoordinate] = useState("");
   const [timer, setTimer] = useState(60000);
   const [score, setScore] = useState(0);
+  const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
     generateNextCoordinate();
     const interval = setInterval(() => {
-      setTimer((prevTimer) => (prevTimer > 0 ? prevTimer - 10 : 0));
+      if (gameStarted) {
+        setTimer((prevTimer) => (prevTimer > 0 ? prevTimer - 10 : 0));
+      }
     }, 10);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [gameStarted]);
 
   useEffect(() => {
     if (timer === 0) {
@@ -31,18 +34,24 @@ function ChessCoordinateGame() {
   };
 
   const generateNextCoordinate = () => {
-    const letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
-    let randomColumn = letters[Math.floor(Math.random() * letters.length)];
-    let randomRow = Math.floor(Math.random() * 8) + 1;
-    let coordinate = randomColumn + randomRow;
-    setNextCoordinate(coordinate);
+    if (gameStarted) {
+      const letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
+      let randomColumn = letters[Math.floor(Math.random() * letters.length)];
+      let randomRow = Math.floor(Math.random() * 8) + 1;
+      let coordinate = randomColumn + randomRow;
+      setNextCoordinate(coordinate);
+    }
   };
 
   const handleSquareClick = (square: string) => {
-    if (timer > 0 && square === nextCoordinate) {
+    if (gameStarted && timer > 0 && square === nextCoordinate) {
       generateNextCoordinate();
       setScore((prevScore) => prevScore + 1);
     }
+  };
+
+  const startGame = () => {
+    setGameStarted(true);
   };
 
   return (
@@ -60,8 +69,8 @@ function ChessCoordinateGame() {
         <div className="info-background">
           <div className="info-box">
             <div className="info-value">
-              <div className="smartIdea"> timer</div>
-              <i className="fas fa-clock fa-5x"></i>{" "}
+              <i className="smartIdea"> timer</i>
+              <div className="fas fa-clock fa-5x"></div>{" "}
               <span className="timer">{formatTime(timer)}</span>
             </div>
           </div>
@@ -74,6 +83,9 @@ function ChessCoordinateGame() {
           </div>
         </div>
       </div>
+      <button className="start-button" onClick={startGame}>
+        Start Game
+      </button>
     </div>
   );
 }
