@@ -1,0 +1,69 @@
+body {
+  background-color: black !important;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: black;
+}
+
+.chessboard-container {
+  flex: 0 0 60%;
+  max-height: 80vh;
+  margin-right: 20px;
+  position: relative;
+}
+
+.info-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.info-background {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 30px;
+  background-color: #222;
+  width: 500px;
+  height: 325px;
+  color: white;
+}
+
+
+.info-value {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer,
+.score {
+  font-size: 150px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.coordinate{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-65%, -45%);
+  font-size: 300px;
+  color: whitesmoke;
+  pointer-events: none;
+}
+
+.smartIdea{
+  height: 40px; 
+  color: black; 
+}
