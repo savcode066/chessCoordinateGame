@@ -46,46 +46,48 @@ function ChessCoordinateGame() {
   const handleSquareClick = (square: string) => {
     if (gameStarted && timer > 0 && square === nextCoordinate) {
       generateNextCoordinate();
-      setScore((prevScore) => prevScore + 1);
+      setScore(score + 1);
     }
   };
 
   const startGame = () => {
+    setScore(0);
+    setTimer(60000);
     setGameStarted(true);
   };
 
   return (
     <div className="container">
       <div className="chessboard-container">
+        <div className="coordinate" style={{fontSize: window.innerWidth * 0.2}}>{nextCoordinate}</div>
         <Chessboard
-          width={window.innerWidth * 0.45}
+          width={window.innerWidth * 0.4}
           position="start"
           draggable={false}
           onSquareClick={handleSquareClick}
         />
-        <div className="coordinate">{nextCoordinate}</div>
       </div>
       <div className="info-container">
-        <div className="info-background">
+        <h1 className='title-text'>Coordinate Trainer</h1>
+        <div className="data-container">        
           <div className="info-box">
             <div className="info-value">
-              <i className="smartIdea"> timer</i>
-              <div className="fas fa-clock fa-5x"></div>{" "}
+              <div className="fas fa-clock fa-5x"></div>
               <span className="timer">{formatTime(timer)}</span>
             </div>
           </div>
           <div className="info-box">
             <div className="info-value">
-              <div className="smartIdea"> score</div>
-              <i className="fas fa-trophy fa-5x"></i>{" "}
+              <i className="fas fa-trophy fa-5x"></i>
               <span className="score">{score}</span>
             </div>
           </div>
         </div>
+        <button className="start-button" onClick={startGame}>
+          Start Game
+        </button>
       </div>
-      <button className="start-button" onClick={startGame}>
-        Start Game
-      </button>
+      
     </div>
   );
 }
